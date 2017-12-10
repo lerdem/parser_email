@@ -110,17 +110,17 @@ def put_urls(_list, place=CURRENT_DEEP_URLS):
 
 
 if __name__ == '__main__':
+    # first start from base_url
     html = get_html(BASE_URL)
     get_email(html)
     grub_new_urls = get_url(html)
     put_urls(grub_new_urls)
 
+    # work with level parsing
     for i in range(DEEP + 1):
         if CURRENT_DEEP < DEEP:
-            k = 0
-            while CURRENT_DEEP_URLS and k < 20:
+            while CURRENT_DEEP_URLS:
                 url = CURRENT_DEEP_URLS[0]
-                print(url)
                 html = get_html(url)
                 get_email(html)
                 grub_new_urls = get_url(html)
@@ -128,23 +128,8 @@ if __name__ == '__main__':
 
                 CURRENT_DEEP_URLS.pop(0)
 
-                print('|{:5}|{:5}|{:5}|{:5}|'.format(
-                    len(CURRENT_DEEP_URLS),
-                    len(CRAWLED_URLS),
-                    len(NEXT_DEEP_URLS),
-                    CURRENT_DEEP)
-                )
-                k+=1
-
             CURRENT_DEEP_URLS = list(set(NEXT_DEEP_URLS[:]))
             NEXT_DEEP_URLS.clear()
             CURRENT_DEEP += 1
 
-    print('|{:5}|{:5}|{:5}|{:5}|'.format(
-        len(CURRENT_DEEP_URLS),
-        len(CRAWLED_URLS),
-        len(NEXT_DEEP_URLS),
-        CURRENT_DEEP)
-    )
-    print('*'*80)
     print(RESULT_EMAIL)
