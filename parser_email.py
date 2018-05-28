@@ -32,7 +32,7 @@ args = parser.parse_args()
 print('program start on url {0.url} with deep {0.deep}'.format(args))
 
 
-# becauce a lot of sites has relative urls
+# check if relative urls exists
 def check_domain(url):
     regex = re.compile(r'(http[s]?://[a-z0-9-.]*[a-z.]{3,4}[a-z]{2,3})')
     url = regex.findall(url)
